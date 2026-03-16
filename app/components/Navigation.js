@@ -28,6 +28,11 @@ export default function Navigation() {
             Guest area
           </Link>
         </li>
+        <li>
+          <Link href="/" className="hover:text-accent-400 transition-colors">
+            Home
+          </Link>
+        </li>
       </ul>
     </nav>
   );

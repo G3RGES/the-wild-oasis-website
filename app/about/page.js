@@ -4,12 +4,16 @@ import about1 from "@/public/about-1.jpg";
 import about2 from "@/public/about-2.jpg";
 import { getCabins } from "../_lib/data-service";
 
+export const revalidate = 86400;
+
 export const metadata = {
   title: "About",
 };
 
 export default async function Page() {
   const cabins = await getCabins();
+
+  //* USING &apos; WILL SOMETIMES CAUSE VISUAL ERRORS, AND WON'T WORK PROPERLY.
 
   return (
     <div className="grid grid-cols-5 gap-x-24 gap-y-32 text-lg items-center">

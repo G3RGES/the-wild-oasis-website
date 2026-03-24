@@ -7,6 +7,8 @@ function Filter() {
   const router = useRouter();
   const pathname = usePathname();
 
+  const activeFilter = searchParams.get("capacity");
+
   function handleFilter(filter) {
     const params = new URLSearchParams(searchParams);
     params.set("capacity", filter);
@@ -15,31 +17,56 @@ function Filter() {
 
   return (
     <div className="border border-primary-800 flex ">
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("all")}
+      <FilterButton
+        filter="all"
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+        //    onClick={() => handleFilter("all")}
       >
         All cabins
-      </button>
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("small")}
+      </FilterButton>
+      <FilterButton
+        filter="small"
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+        //    onClick={() => handleFilter("small")}
       >
         Small cabins
-      </button>
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("medium")}
+      </FilterButton>
+      <FilterButton
+        filter="medium"
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
+        //   onClick={() => handleFilter("medium")}
       >
         Medium cabins
-      </button>
-      <button
-        className="px-5 py-2 hover:bg-primary-700"
-        onClick={() => handleFilter("large")}
+      </FilterButton>
+      <FilterButton
+        filter="large"
+        // handleFilter={() => handleFilter("large")}
+        handleFilter={handleFilter}
+        activeFilter={activeFilter}
       >
         Large cabins
-      </button>
+      </FilterButton>
     </div>
+  );
+}
+
+function FilterButton({
+  onClick,
+  children,
+  activeFilter,
+  filter,
+  handleFilter,
+}) {
+  return (
+    <button
+      className={`px-5 py-2 hover:bg-primary-700`}
+      onClick={() => handleFilter(filter)}
+    >
+      {children}
+    </button>
   );
 }
 

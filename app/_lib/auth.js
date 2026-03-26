@@ -1,4 +1,4 @@
-import { NextAuth } from "next-auth";
+import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 
 const authConfig = {
@@ -10,4 +10,7 @@ const authConfig = {
   ],
 };
 
-export const {auth,handlers:{GET,POST}}=NextAuth(authConfig)
+export const {
+  auth,
+  handlers: { GET, POST },
+} = NextAuth(authConfig);

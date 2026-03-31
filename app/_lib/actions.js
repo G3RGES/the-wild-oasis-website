@@ -124,4 +124,6 @@ export async function createBooking(bookingData, formData) {
   const { error } = await supabase.from("bookings").insert([newBooking]);
 
   if (error) throw new Error("Booking could not be created");
+
+  revalidatePath(`/cabins/${bookingData.cabinId}`); // Revalidate cabin page to update availability
 }

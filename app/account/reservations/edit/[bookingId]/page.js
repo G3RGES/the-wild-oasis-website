@@ -1,4 +1,5 @@
 import FormButton from "@/app/_components/FormButton";
+import SpinnerMini from "@/app/_components/SpinnerMini";
 import { updateBooking } from "@/app/_lib/actions";
 import { getBooking, getCabin } from "@/app/_lib/data-service";
 
@@ -55,7 +56,15 @@ export default async function Page({ params }) {
             Update reservation
           </button> */}
 
-          <FormButton>Update reservation</FormButton>
+          <FormButton
+            pendingLabel={
+              <span className="mx-auto">
+                <SpinnerMini />
+              </span>
+            }
+          >
+            Update reservation
+          </FormButton>
         </div>
       </form>
     </div>

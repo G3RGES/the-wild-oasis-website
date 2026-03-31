@@ -61,7 +61,7 @@ function UpdateProfileForm({ guest, children }) {
       </div>
 
       <div className="flex justify-end items-center gap-6">
-        <FormButton>Update profile</FormButton>
+        <FormButton pendingLabel="Updating...">Update profile</FormButton>
       </div>
     </form>
   );

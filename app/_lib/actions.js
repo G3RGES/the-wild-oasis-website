@@ -6,6 +6,7 @@ import { auth, signIn, signOut } from "./auth";
 import { getBookings, updateGuest } from "./data-service";
 import { supabase } from "./supabase";
 import { redirect } from "next/navigation";
+import { is } from "date-fns/locale";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -100,4 +101,27 @@ export async function updateBooking(formData) {
   revalidatePath("/account/reservations");
 
   redirect("/account/reservations");
+}
+
+export async function createBooking(bookingData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("Not authenticated");
+
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observations: formData.get("observations").slice(0, 1000), // Limit observations to 1000 characters
+    extrasPrice: 0, // For simplicity, we're not calculating extras price here
+    totalPrice: bookingData.cabinPrice, // Total price is just the cabin price for now
+    isPaid: false, // For simplicity, we're not handling payments here
+    hasBreakfast: false, // For simplicity, we're not handling extras here
+    status: "unconfirmed", // Default status
+  };
+
+  // console.log(newBooking);
+
+  const { error } = await supabase.from("bookings").insert([newBooking]);
+
+  if (error) throw new Error("Booking could not be created");
 }
